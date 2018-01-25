@@ -1,0 +1,9 @@
+canvas {
+  border: 5px solid GrayText;
+}
+.container {
+  text-align: center;
+}
+.button {
+  padding: 0.4rem;
+}
