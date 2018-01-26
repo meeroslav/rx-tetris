@@ -1,3 +1,5 @@
+import { ShapeColors } from './constants';
+
 export interface Point2D {
   x: number;
   y: number;
@@ -10,16 +12,6 @@ export interface Block {
   y: number;
   shape: Shape;
 }
-
-export const ShapeColors  = [
-  '#ffffff',
-  '#0080bf',
-  '#a0cf77',
-  '#d9534f',
-  '#f0ad4e',
-  '#ff5b77',
-  '#613d7c'
-];
 
 export const getRandomColor = () => {
  return ShapeColors[~~(Math.random() * (ShapeColors.length - 1) + 1)];

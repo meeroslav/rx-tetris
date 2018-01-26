@@ -16,7 +16,6 @@
     "member-access": false,
     "no-arg": true,
     "no-bitwise": false,
-    "no-console": [ true, "log" ],
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-variable": true,

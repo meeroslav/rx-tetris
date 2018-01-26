@@ -1,7 +1,5 @@
 import { Block, rotateShape, Shape } from './shapes';
-
-const BOARD_WIDTH = 10;
-const BOARD_HEIGHT = 22;
+import { BOARD_HEIGHT, BOARD_WIDTH } from './constants';
 
 export const BoardShape: Shape = Array(BOARD_HEIGHT).map(() => Array(BOARD_WIDTH).map(() => 0));
 
