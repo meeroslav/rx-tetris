@@ -6,9 +6,9 @@ export interface Point2D {
 export type Shape = number[][];
 
 export interface Block {
-  shape: Shape;
   x: number;
   y: number;
+  shape: Shape;
 }
 
 export const ShapeColors  = [
