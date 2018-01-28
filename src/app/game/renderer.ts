@@ -1,13 +1,13 @@
 import { ShapeColors, BOARD_WIDTH, BOARD_HEIGHT, CELL_SIZE, GAP_SIZE } from './constants';
 import { Block, Point2D, Shape, Scene } from './shapes';
 
-export const renderScene = (ctx: CanvasRenderingContext2D, scene: Scene) => {
+export function renderScene(ctx: CanvasRenderingContext2D, scene: Scene) {
   renderBackground(ctx);
   renderBoard(ctx, scene.board);
   if (scene.block) {
     renderBlock(ctx, scene.block);
   }
-};
+}
 
 function renderBackground(ctx: CanvasRenderingContext2D) {
   ctx.fillStyle = ShapeColors[0];

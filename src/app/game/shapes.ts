@@ -14,9 +14,9 @@ export interface Block {
   colorIndex: number;
 }
 
-export const getRandomColorIndex = () => {
+export function getRandomColorIndex() {
  return ~~(Math.random() * (ShapeColors.length - 1) + 1);
-};
+}
 
 export const Shapes: Shape[] = [
   [
@@ -56,11 +56,11 @@ export const Shapes: Shape[] = [
   ],
 ];
 
-export const getRandomShape = () => {
+export function getRandomShape() {
   return Shapes[~~(Math.random() * Shapes.length)];
-};
+}
 
-export const rotateShape = (shape: Shape) => {
+export function rotateShape(shape: Shape) {
   let rotated: Shape = [];
   shape.forEach((row: number[], i: number) => {
     rotated[i] = [];
@@ -69,7 +69,7 @@ export const rotateShape = (shape: Shape) => {
     });
   });
   return shape;
-};
+}
 
 export const BoardShape: Shape = Array(BOARD_HEIGHT).map(() => Array(BOARD_WIDTH).map(() => 0));
 
