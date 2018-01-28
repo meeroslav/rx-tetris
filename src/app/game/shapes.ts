@@ -68,10 +68,13 @@ export function rotateShape(shape: Shape) {
       rotated[i][j] = shape[row.length - 1 - j][i];
     });
   });
-  return shape;
+  return rotated;
 }
 
-export const BoardShape: Shape = Array(BOARD_HEIGHT).map(() => Array(BOARD_WIDTH).map(() => 0));
+export const BoardShape: Shape = Array(BOARD_HEIGHT)
+  .fill(0)
+  .map(_ => Array(BOARD_WIDTH)
+  .fill(0));
 
 export interface Scene {
   board: Shape;
