@@ -1,6 +1,9 @@
 import { ShapeColors, BOARD_WIDTH, BOARD_HEIGHT, CELL_SIZE, GAP_SIZE } from './constants';
 import { Block, Point2D, Shape, Scene } from './shapes';
 
+const CANVAS_WIDTH = BOARD_WIDTH * (CELL_SIZE + GAP_SIZE) - GAP_SIZE;
+const CANVAS_HEIGHT = BOARD_HEIGHT * (CELL_SIZE + GAP_SIZE) - GAP_SIZE;
+
 export function renderScene(ctx: CanvasRenderingContext2D, scene: Scene) {
   renderBackground(ctx);
   renderBoard(ctx, scene.board);
@@ -9,9 +12,24 @@ export function renderScene(ctx: CanvasRenderingContext2D, scene: Scene) {
   }
 }
 
+export function renderGameOver(ctx: CanvasRenderingContext2D) {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+  let textX = CANVAS_WIDTH / 2;
+  let textY = CANVAS_HEIGHT / 2;
+
+  ctx.fillStyle = '#000000';
+  ctx.font = `bold 25px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  ctx.fillText('GAME OVER!', textX, textY);
+}
+
 function renderBackground(ctx: CanvasRenderingContext2D) {
   ctx.fillStyle = ShapeColors[0];
-  ctx.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
 function renderBoard(ctx: CanvasRenderingContext2D, board: Shape) {
