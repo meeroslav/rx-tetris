@@ -8,6 +8,13 @@ export const ShapeColors  = [
   '#613d7c'
 ];
 
+export enum Keys {
+  ArrowLeft = 'ArrowLeft',
+  ArrowRight = 'ArrowRight',
+  Space = 'Space',
+  ArrowDown = 'ArrowDown'
+}
+
 export const BOARD_WIDTH = 10;
 export const BOARD_HEIGHT = 20;
 export const GAP_SIZE = 1;
