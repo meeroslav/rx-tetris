@@ -1,7 +1,5 @@
 import { Block, rotateShape, Shape } from './shapes';
-import { BOARD_HEIGHT, BOARD_WIDTH } from './constants';
-
-export const BoardShape: Shape = Array(BOARD_HEIGHT).map(() => Array(BOARD_WIDTH).map(() => 0));
+import { BOARD_WIDTH } from './constants';
 
 export const isInCollision = (board: Shape, block: Block) => {
   return block.shape.some((row: number[], i: number) =>
@@ -16,13 +14,13 @@ export const isInCollision = (board: Shape, block: Block) => {
 };
 
 export const canMove = (board: Shape, block: Block, delta: number) => {
-  const clone = { ...block };
+  const clone = { ...block } as Block;
   clone.x += delta;
   return isInCollision(board, clone);
 };
 
 export const canRotate = (board: Shape, block: Block) => {
-  const clone = { ...block };
+  const clone = { ...block } as Block;
   clone.shape = rotateShape(clone.shape);
   return isInCollision(board, clone);
 };

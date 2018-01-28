@@ -1,4 +1,4 @@
-import { ShapeColors } from './constants';
+import { BOARD_HEIGHT, BOARD_WIDTH, ShapeColors } from './constants';
 
 export interface Point2D {
   x: number;
@@ -11,10 +11,11 @@ export interface Block {
   x: number;
   y: number;
   shape: Shape;
+  colorIndex: number;
 }
 
-export const getRandomColor = () => {
- return ShapeColors[~~(Math.random() * (ShapeColors.length - 1) + 1)];
+export const getRandomColorIndex = () => {
+ return ~~(Math.random() * (ShapeColors.length - 1) + 1);
 };
 
 export const Shapes: Shape[] = [
@@ -69,3 +70,10 @@ export const rotateShape = (shape: Shape) => {
   });
   return shape;
 };
+
+export const BoardShape: Shape = Array(BOARD_HEIGHT).map(() => Array(BOARD_WIDTH).map(() => 0));
+
+export interface Scene {
+  board: Shape;
+  block?: Block;
+}
