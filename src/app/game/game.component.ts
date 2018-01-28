@@ -6,7 +6,7 @@ import { BoardShape } from './shapes';
 @Component({
   selector: 'app-game',
   template: `
-    <canvas #gameCanvas width="219" height="461">
+    <canvas #gameCanvas>
     </canvas>
   `,
 })

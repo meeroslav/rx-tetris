@@ -9,7 +9,7 @@ export const ShapeColors  = [
 ];
 
 export const BOARD_WIDTH = 10;
-export const BOARD_HEIGHT = 22;
+export const BOARD_HEIGHT = 20;
 export const GAP_SIZE = 1;
 export const CELL_SIZE = 30;
 
