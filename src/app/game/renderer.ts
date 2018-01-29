@@ -1,4 +1,4 @@
-import { ShapeColors, BOARD_WIDTH, BOARD_HEIGHT, CELL_SIZE, GAP_SIZE } from './constants';
+import { ShapeColors, BOARD_WIDTH, BOARD_HEIGHT, CELL_SIZE, GAP_SIZE, BlackColor } from './constants';
 import { Block, Point2D, Shape, Scene } from './shapes';
 
 const CANVAS_WIDTH = BOARD_WIDTH * (CELL_SIZE + GAP_SIZE) - GAP_SIZE;
@@ -19,7 +19,7 @@ export function renderGameOver(ctx: CanvasRenderingContext2D) {
   let textX = CANVAS_WIDTH / 2;
   let textY = CANVAS_HEIGHT / 2;
 
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = BlackColor;
   ctx.font = `bold 25px sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -53,7 +53,7 @@ function paintCell(ctx: CanvasRenderingContext2D, point: Point2D, colorIndex: nu
   const x = point.x * CELL_SIZE + (point.x * GAP_SIZE);
   const y = point.y * CELL_SIZE + (point.y * GAP_SIZE);
 
-  ctx.fillStyle = ShapeColors[colorIndex];
+  ctx.fillStyle = colorIndex > 0 ? ShapeColors[colorIndex] : BlackColor;
   ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
 }
 

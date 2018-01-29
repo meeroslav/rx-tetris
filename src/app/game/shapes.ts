@@ -71,6 +71,17 @@ export function rotateShape(shape: Shape) {
   return rotated;
 }
 
+export function invertShape(shape: Shape) {
+  let rotated: Shape = [];
+  shape.forEach((row: number[], i: number) => {
+    rotated[i] = [];
+    row.forEach((cell, j: number) => {
+      rotated[i][j] = cell ? -cell : cell;
+    });
+  });
+  return rotated;
+}
+
 export const BoardShape: Shape = Array(BOARD_HEIGHT)
   .fill(0)
   .map(_ => Array(BOARD_WIDTH)

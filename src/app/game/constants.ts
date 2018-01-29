@@ -1,5 +1,5 @@
 export const ShapeColors  = [
-  '#ffffff',
+  '#efefef',
   '#0080bf',
   '#a0cf77',
   '#d9534f',
@@ -7,6 +7,8 @@ export const ShapeColors  = [
   '#ff5b77',
   '#613d7c'
 ];
+
+export const BlackColor = '#000000';
 
 export enum Keys {
   ArrowLeft = 'ArrowLeft',

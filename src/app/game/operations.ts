@@ -1,4 +1,7 @@
-import { Block, BoardShape, getRandomColorIndex, getRandomShape, rotateShape, Scene, Shape } from './shapes';
+import {
+  Block, BoardShape, getRandomColorIndex, getRandomShape, invertShape, rotateShape, Scene,
+  Shape
+} from './shapes';
 import { BOARD_WIDTH, Keys } from './constants';
 
 export function modifyScene(scene: Scene, keyAction: Keys) {
@@ -6,26 +9,28 @@ export function modifyScene(scene: Scene, keyAction: Keys) {
   switch(keyAction) {
     case Keys.ArrowDown:
       result = move(scene, 0, 1);
-      if (!canMove(result.board, result.block, 0, 1)) {
+      if (!result) {
+        result = scene;
         if (result.block.y >= 0) {
           result.board = addBlock(result.board, result.block);
-
+          // remove lines
           const rowIndexes = getFullRows(result.board);
           result.board = removeRows(result.board, rowIndexes);
-
           // create new block
           result.block = generateBlock();
+        } else {
+          result.block.shape = invertShape(result.block.shape);
         }
       }
       break;
     case Keys.ArrowLeft:
-      result = move(scene, -1, 0);
+      result = move(scene, -1, 0) || scene;
       break;
     case Keys.ArrowRight:
-      result = move(scene, 1, 0);
+      result = move(scene, 1, 0) || scene;
       break;
     case Keys.Space:
-      result = rotate(scene);
+      result = rotate(scene) || scene;
       break;
   }
 
@@ -33,10 +38,7 @@ export function modifyScene(scene: Scene, keyAction: Keys) {
 }
 
 export function isGameOver(scene) {
-  if (canMove(scene.board, scene.block, 0, 1)) {
-    return false;
-  }
-  return scene.block.y < 0;
+  return scene.block.shape.some(row => row.some(cell => cell < 0));
 }
 
 export function generateScene(): Scene {
@@ -53,23 +55,38 @@ function generateBlock() {
     shape: shape,
     colorIndex: getRandomColorIndex(),
     x: ~~((BOARD_WIDTH - shape[0].length) / 2),
-    y: -shape.length
+    y: -shape.length + 1
   };
 }
 
 function move(scene: Scene, deltaX: number = 0, deltaY: number = 0) {
   if (canMove(scene.board, scene.block, deltaX, deltaY)) {
-    scene.block.x += deltaX;
-    scene.block.y += deltaY;
+    return {
+      board: scene.board,
+      block: {
+        shape: scene.block.shape,
+        colorIndex: scene.block.colorIndex,
+        x: scene.block.x + deltaX,
+        y: scene.block.y + deltaY
+      }
+    };
   }
-  return scene;
+  return;
 }
 
 function rotate(scene: Scene) {
   if (canRotate(scene.board, scene.block)) {
-    scene.block.shape = rotateShape(scene.block.shape);
+    return {
+      board: scene.board,
+      block: {
+        shape: rotateShape(scene.block.shape),
+        colorIndex: scene.block.colorIndex,
+        x: scene.block.x,
+        y: scene.block.y
+      }
+    };
   }
-  return scene;
+  return;
 }
 
 function isInCollision(board: Shape, block: Block) {
