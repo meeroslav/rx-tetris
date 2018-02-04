@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BOARD_HEIGHT, BOARD_WIDTH, CELL_SIZE, FPS, GAME_SPEED, GAP_SIZE, Keys } from './constants';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { filter, map, scan, takeUntil, takeWhile, withLatestFrom } from 'rxjs/operators';
+import { interval } from 'rxjs/observable/interval';
+import { Subject } from 'rxjs/Subject';
 import { generateScene, isGameOver, modifyScene } from './operations';
 import { renderGameOver, renderScene } from './renderer';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Subject } from 'rxjs/Subject';
-import { interval } from 'rxjs/observable/interval';
 import { animationFrame } from 'rxjs/scheduler/animationFrame';
-import { map, filter, scan, takeWhile, withLatestFrom, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -52,13 +52,12 @@ export class GameComponent implements OnInit, OnDestroy {
       )
       .subscribe(action$);
 
-    // modify scene on action
     const scene$ = action$
       .pipe(
         scan(modifyScene, generateScene())
       );
 
-    interval(1000 / FPS, animationFrame)
+    interval(FPS, animationFrame)
       .pipe(
         withLatestFrom(scene$, (_, scene) => scene),
         takeWhile(scene => !isGameOver(scene)),
