@@ -127,11 +127,18 @@ function getFullRows(board: Shape) {
 }
 
 function removeRows(board: Shape, rowIndexes: number[]) {
-  rowIndexes.forEach(index => {
-    board.splice(index);
-    board.unshift(Array(BOARD_WIDTH).fill(0));
-  });
+  if (rowIndexes.length) {
+    const emptyLines = Array(rowIndexes.length)
+      .fill(void 0)
+      .map(_ => Array(BOARD_WIDTH)
+        .fill(0));
 
+    const result = [
+      ...emptyLines,
+      ...board.filter((_, i) => rowIndexes.indexOf(i) === -1)
+    ];
+    return result;
+  }
   return board;
 }
 

@@ -83,7 +83,7 @@ export function invertShape(shape: Shape) {
 }
 
 export const BoardShape: Shape = Array(BOARD_HEIGHT)
-  .fill(0)
+  .fill(void 0)
   .map(_ => Array(BOARD_WIDTH)
   .fill(0));
 
