@@ -28,31 +28,29 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   startGame(ctx: CanvasRenderingContext2D) {
-    const action$ = new Subject();
+    const actions$ = new Subject();
 
-    // on key down
     fromEvent(document, 'keydown')
       .pipe(
         map((event: KeyboardEvent) => Keys[event.code]),
         filter(key => !!key),
         takeUntil(this.destroy$)
       )
-      .subscribe(action$);
+      .subscribe(actions$);
 
-    // on tick
     interval(GAME_SPEED)
       .pipe(
         map(_ => Keys.ArrowDown),
         takeUntil(this.destroy$)
       )
-      .subscribe(action$);
+      .subscribe(actions$);
 
-    const scene$ = action$
+    const scene$ = actions$
       .pipe(
         scan(modifyScene, generateScene())
       );
